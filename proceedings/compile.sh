@@ -1,5 +1,5 @@
-latex P6-4
-bibtex P6-4
-latex P6-4
-latex P6-4
-dvipdfm P6-4
+latex P-165
+bibtex P-165
+latex P-165
+latex P-165
+dvipdfm P-165
