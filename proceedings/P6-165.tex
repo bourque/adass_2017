@@ -74,22 +74,22 @@ and website API.  ACS Quicklook is intended to be extended to support the forthc
 
 \section{Introduction}
 
-The ACS Quicklook Application (hereinafter referred to as ``\texttt{acsql}") is a Python-based application for discovering, viewing, and
+The ACS Quicklook Application (hereinafter referred to as ``\texttt{acsql}'') is a Python-based application for discovering, viewing, and
 querying all publicly-available ACS data.  It consists of: (1) A filesystem that stores ACS instrument data files
-and ``Quicklook" JPEGs in an organized Network File System (NFS) (hereinafter referred to as the ``\texttt{acsql} filesystem"), (2) A
-\texttt{MySQL} database that stores observational metadata of each observation (hereinafter referred to as the ``\texttt{acsql} database"),
+and ``Quicklook'' JPEGs in an organized Network File System (NFS) (hereinafter referred to as the ``\texttt{acsql} filesystem''), (2) A
+\texttt{MySQL} database that stores observational metadata of each observation (hereinafter referred to as the ``\texttt{acsql} database''),
 (3) A Python/\texttt{Flask}-based web application for interacting with the filesystem and database (hereinafter referred to as the
-``\texttt{acsql} web application"), and (4) A Python code library that contains software for connecting to the database, ingesting new data,
-logging production code execution, and building/maintaining the web application (hereinafter referred to as the ``\texttt{acsql} library"
-or ``\texttt{acsql} package").  Below, we futher describe each of these main components.
+``\texttt{acsql} web application''), and (4) A Python code library that contains software for connecting to the database, ingesting new data,
+logging production code execution, and building/maintaining the web application (hereinafter referred to as the ``\texttt{acsql} library''
+or ``\texttt{acsql} package'').  Below, we further describe each of these main components.
 
 
 \section{Filesystem}
 
 The \texttt{acsql} filesystem is a Network File System (NFS) that stores all publically available on-orbit ACS data on disk in an
-organized set of directories and subdirectories hosted at STScI. Figure \ref{fig1} shows an example of this directory structure.  The
-parent directory is the first four characters of the 9-character rootname, which has a one-to-one correspondence with an
-individual ACS proposal \citet{Smith}. The subdirectories of the parent directories are named after the full 9-character rootname such that
+organized set of directories and subdirectories hosted at the Space Telescope Science Institute (STScI). Figure \ref{fig1} shows an example of this
+directory structure.  The parent directory is the first four characters of the 9-character rootname, which has a one-to-one correspondence with an
+individual ACS proposal (\citet{Smith}). The subdirectories of the parent directories are named after the full 9-character rootname such that
 each parent directory contains all rootnames that were observed for the particular proposal.  Furthermore, each rootname
 subdirectory contains every available filetype for the particular observation. Figure \ref{fig1} also shows how the filesystem has
 evolved over the lifetime of the ACS mission based on the number of ACS observations taken from its three detectors: Wide Field Channel (WFC),
@@ -106,9 +106,9 @@ corresponds to a single 9-character rootname.}
 Another major component of the \texttt{acsql} application is a relational database that stores all FITS header key/value pairs for
 each ACS filetype and each FITS file extension for all on-orbit ACS observations.  Such a database allows users to perform relational queries for
 any observational metadata based on the header keywords.  To accomplish this, we implemented the relational schema shown in Figure \ref{fig2}.
-The \texttt{acsql} database contains 111 tables in total: one \texttt{master} table, which contains basic information about each rootname that is
-important for maintaining the database, one \texttt{datasets} table which indicate which filetypes are available for a particular rootname, and 109
-`header' tables which stores the header key/value pairs, one for each \texttt{detector}-\texttt{filetype}-\texttt{extension} combination
+The \texttt{acsql} database contains 111 tables in total: one \texttt{master} table, which contains basic information about each rootname, used for
+maintaining the database, one \texttt{datasets} table, which indicates the filetypes that are available for a particular rootname, and 109
+`header' tables which store the header key/value pairs, one for each \texttt{detector}-\texttt{filetype}-\texttt{extension} combination
 (e.g. \texttt{wfc$\_$raw$\_$0}).
 
 \articlefiguretwo{P6-165_f2a.eps}{P6-165_f2b.eps}{fig2}{\emph{Left:} The relational schema for the \texttt{acsql} database. \emph{Right:} An example of a query performed on the \texttt{acsql} database using
@@ -119,14 +119,14 @@ the \texttt{database$\_$interface.py} module.}
 
 The front-end of the \texttt{acsql} application is the web application.  The web application is built using Python and \texttt{Flask}, which is a
 Python based web framework (\citet{Ronacher}).  Currently, the web application has two main features/modes of use: (1) viewing JPEGs and image
-metadata for any publicly-available ACS \texttt{raw}, \texttt{flt}, and \texttt{flc} image (when applicible), and (2) performing relational queries
+metadata for any publicly-available ACS \texttt{raw}, \texttt{flt}, and \texttt{flc} image (when applicable), and (2) performing relational queries
 on the \texttt{acsql} database.  To illustrate these features, we show examples of some of the different webpages that make up the web application
 in Figure \ref{fig3} and Figure \ref{fig4}.
 
 \articlefigure[width=3.0in]{P6-165_f3.eps}{fig3}{An example webpage for viewing dataset \texttt{jcs718kmq}.}
-\articlefiguretwo{P6-165_f4a.eps}{P6-165_f4b.eps}{fig4}{The Quicklook homepage (\emph{top}), a Quicklook webpage showing results of a database query (\emph{middle}), and a Quicklook webpage for viewing a single image (\emph{bottom}).}
+\articlefiguretwo{P6-165_f4a.eps}{P6-165_f4b.eps}{fig4}{The Quicklook webpage for performing a database query (\emph{left}) and the webpage showing the results of the query (\emph{right}).}
 
-\acknowledgements We would like to thank the Advanced Camera for Surveys team at STScI for their continued support of this project. We would also like to thank the members of the Operations and Engineering Division (OED) and the Information Technology Services Division (ITSD) at STScI for their assistance on archival and computer support issues.  Finally,  we would like to thank the Towson University Computer Science Department for their support of this project as part of the author's Computer Science Master's Degree project.
+\acknowledgements We would like to thank the Advanced Camera for Surveys team at STScI for their continued support of this project. We would also like to thank the members of the Operations and Engineering Division (OED) and the Information Technology Services Division (ITSD) at STScI for their assistance on archival and computer support issues.  Finally,  we would like to thank the Towson University Computer Science Department for their support of this project as part of the author's Computer Science Master's Degree thesis.
 
 \bibliography{P6-165}
 
